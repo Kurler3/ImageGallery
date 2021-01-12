@@ -1,6 +1,7 @@
 package com.miguel.imagegallery;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAdapter.FolderViewHolder> {
@@ -53,6 +55,7 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
         ImageFolder imageFolder = mFolderArray.get(position);
 
         // Displays the first image on the folder. Glide loads a path
+
         Glide.with(mContext)
                 .load(imageFolder.getFirstPic())
                 .apply(new RequestOptions().centerCrop())

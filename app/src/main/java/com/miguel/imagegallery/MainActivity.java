@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                     .setMessage("This app needs access to your storage to be able to show you your photos!")
                     .setPositiveButton("Ok", (dialog, which) ->
                             ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             READ_STORAGE_PERMISSION_CODE))
                     .setNegativeButton("Refuse", (dialog, which) -> dialog.dismiss())
                     .create().show();
         }else{
             // The code is passed to later identify the request
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     READ_STORAGE_PERMISSION_CODE);
         }
     }
@@ -159,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         }
 
         return folders;
+    }
+
+    @Override
+    public void onPicClicked(PictureRecyclerAdapter.PictureHolder holder, int position, ArrayList<Picture> pics) {
+
     }
 
     @Override
