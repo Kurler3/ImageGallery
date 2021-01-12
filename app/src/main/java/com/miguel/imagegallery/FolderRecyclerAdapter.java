@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAdapter.FolderViewHolder> {
@@ -35,8 +38,6 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
             mFolderTitle = itemView.findViewById(R.id.folderName);
             mFolderSize = itemView.findViewById(R.id.folderSize);
             mCardView = itemView.findViewById(R.id.folderCard);
-
-
         }
     }
     @NonNull
@@ -49,13 +50,27 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
+        ImageFolder imageFolder = mFolderArray.get(position);
 
+        // Displays the first image on the folder. Glide loads a path
+        Glide.with(mContext)
+                .load(imageFolder.getFirstPic())
+                .apply(new RequestOptions().centerCrop())
+                .into(holder.mFolderImage);
 
+        String folderName = imageFolder.getName();
+        String folderSize = "" + imageFolder.getNumPics();
+
+        holder.mFolderTitle.setText(folderName);
+        holder.mFolderSize.setText(folderSize);
+
+        holder.mCardView.setOnClickListener(v ->
+                mItemClickListener.onPicClicked(imageFolder.getPath(),
+                        imageFolder.getName()));
     }
 
     @Override
     public int getItemCount() {
         return mFolderArray.size();
     }
-
 }

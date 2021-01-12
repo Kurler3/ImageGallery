@@ -1,10 +1,10 @@
 package com.miguel.imagegallery;
 
 public class ImageFolder {
-    String name;
-    String path;
-    int numPics;
-    String firstPic;
+    private String name;
+    private String path;
+    private int numPics;
+    private String firstPic;
 
     public ImageFolder(){}
 
@@ -43,5 +43,8 @@ public class ImageFolder {
 
     public void setFirstPic(String firstPic) {
         this.firstPic = firstPic;
+    }
+    public void addPic(){
+        this.numPics++;
     }
 }
