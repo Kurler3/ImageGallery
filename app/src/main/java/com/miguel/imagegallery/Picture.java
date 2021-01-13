@@ -1,6 +1,9 @@
 package com.miguel.imagegallery;
 
-public class Picture {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Picture implements Parcelable {
     private String pictureName;
     private String picturePath;
     private  String pictureSize;
@@ -15,6 +18,27 @@ public class Picture {
         this.pictureSize = pictureSize;
         this.imageUri = imageUri;
     }
+
+    protected Picture(Parcel in) {
+        pictureName = in.readString();
+        picturePath = in.readString();
+        pictureSize = in.readString();
+        imageUri = in.readString();
+        byte tmpSelected = in.readByte();
+        selected = tmpSelected == 0 ? null : tmpSelected == 1;
+    }
+
+    public static final Creator<Picture> CREATOR = new Creator<Picture>() {
+        @Override
+        public Picture createFromParcel(Parcel in) {
+            return new Picture(in);
+        }
+
+        @Override
+        public Picture[] newArray(int size) {
+            return new Picture[size];
+        }
+    };
 
     public String getPictureName() {
         return pictureName;
@@ -54,5 +78,19 @@ public class Picture {
 
     public void setSelected(Boolean selected) {
         this.selected = selected;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(pictureName);
+        dest.writeString(picturePath);
+        dest.writeString(pictureSize);
+        dest.writeString(imageUri);
+        dest.writeByte((byte) (selected == null ? 0 : selected ? 1 : 2));
     }
 }
